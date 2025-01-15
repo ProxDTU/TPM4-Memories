@@ -1,7 +1,6 @@
 const apiKey = decrypt(env.key, 'proxneverdie');
 const spreadsheetId = env.sheet_id;
 
-console.log(apiKey, spreadsheetId)
 const sheetName = "Quote";
 let quotes = [];
 let container = document.querySelector("ul.comments-right");
@@ -11,7 +10,6 @@ fetch(
 )
   .then((response) => response.json())
   .then((data) => {
-    console.log(data.values);
     quotes = data?.values;
     displayQuote(1);
   })
