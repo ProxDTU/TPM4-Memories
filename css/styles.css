@@ -221,7 +221,7 @@ body{
 .carousel-container {
   width: 100%;
   position: relative;
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -483,7 +483,7 @@ body{
   }
 
   .carousel-item p {
-    height: 70vh;
+    height: 65vh;
   }
 }
 
@@ -541,7 +541,7 @@ body{
   }
 
   .carousel-item p {
-    height: 65vh;
+    height: 60vh;
     font-size: 30px !important; 
     line-height: 25px !important;
   }
