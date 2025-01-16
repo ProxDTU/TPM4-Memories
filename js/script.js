@@ -127,3 +127,50 @@ window.addEventListener('wheel', function (event) {
     }
   });
 }, { passive: false });
+
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+
+function handleTouchStart(e) {
+  // Lưu lại tọa độ điểm bắt đầu của vuốt
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}
+
+function handleTouchEnd(e) {
+  // Lưu lại tọa độ điểm kết thúc của vuốt
+  touchEndX = e.changedTouches[0].screenX;
+  touchEndY = e.changedTouches[0].screenY;
+
+  // Kiểm tra sự di chuyển trên trục ngang và trục dọc
+  if (Math.abs(touchEndX - touchStartX) > Math.abs(touchEndY - touchStartY)) {
+    // Vuốt ngang (chỉ thay đổi quote khi vuốt ngang)
+    handleSwipe();
+  }
+}
+
+function handleSwipe() {
+  if (touchEndX < touchStartX) {
+    // Vuốt sang trái (next quote)
+    currentIndex = (currentIndex + 1) % quotes.length;
+    displayQuote(currentIndex);
+  }
+
+  if (touchEndX > touchStartX) {
+    // Vuốt sang phải (prev quote)
+    currentIndex = (currentIndex - 1 + quotes.length) % quotes.length;
+    displayQuote(currentIndex);
+  }
+}
+
+// Thêm sự kiện touch vào carousel
+carousel.addEventListener('touchstart', handleTouchStart);
+carousel.addEventListener('touchend', handleTouchEnd);
+
+window.addEventListener("load", loading)
+function loading() {
+    let loading = document.getElementById('loading-overlay');
+    loading.classList.add('hidden');
+}
