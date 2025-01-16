@@ -561,37 +561,3 @@ body{
     display: none;
   }
 }
-
-
-#loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-#loading-overlay {
-    opacity: 1;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    visibility: visible;
-}
-
-.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-#loading-overlay .loading-text{
-  font-family: 'HolidayMaria';
-  font-size: 35px !important;
-  color: #fff;
-  font-weight: 100 !important;
-}
-

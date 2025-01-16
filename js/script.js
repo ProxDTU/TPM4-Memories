@@ -168,9 +168,3 @@ function handleSwipe() {
 // Thêm sự kiện touch vào carousel
 carousel.addEventListener('touchstart', handleTouchStart);
 carousel.addEventListener('touchend', handleTouchEnd);
-
-window.addEventListener("load", loading)
-function loading() {
-    let loading = document.getElementById('loading-overlay');
-    loading.classList.add('hidden');
-}
