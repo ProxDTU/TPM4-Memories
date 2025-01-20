@@ -10,8 +10,7 @@
 
 @font-face {
   font-family: "NotoSerif";
-  src: url("../assets/fonts/NotoSerif_Condensed-SemiBold.ttf")
-    format("truetype");
+  src: url("../assets/fonts/NotoSerif_Condensed-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
@@ -40,13 +39,14 @@ body {
   /* overflow: hidden; */
 }
 
-h1{
+h1 {
   margin: 30px 0 !important;
 }
 
-body{
+body {
   max-width: 1600px;
-  margin: 0 auto; /* Căn giữa theo chiều ngang */
+  margin: 0 auto;
+  /* Căn giữa theo chiều ngang */
   padding: 0;
   overflow-x: hidden;
 }
@@ -110,6 +110,7 @@ body{
   z-index: 1;
   margin-top: 20vh;
 }
+
 .home .home-release {
   color: #000;
   font-family: "NotoSerif";
@@ -301,14 +302,14 @@ body{
   transform: rotate(45deg);
 }
 
-.quote-avatar{
+.quote-avatar {
   height: 50px;
-  width:  50px;
+  width: 50px;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.quote-content{
+.quote-content {
   font-family: 'HolidayMaria' !important;
   text-align: justify;
   text-justify: inter-word;
@@ -316,7 +317,7 @@ body{
   line-height: 30px !important;
 }
 
-.add-new-comment{
+.add-new-comment {
   font-family: "HolidayMaria";
   font-size: 35px !important;
   text-align: center;
@@ -367,49 +368,162 @@ body{
   animation-name: fadeInUp_;
 }
 
+/* Thank page */
+
+.end-section{
+  max-height: 100vh;
+  position: relative;
+}
+
+
+
+#animatedText{
+  --text-width: 272.3px;
+  --text-height: 173.3px;
+  position: absolute;
+  top: calc(50% - var(--text-height)/ 2);
+  left: calc(50% - var(--text-width)/ 2 - 20px);
+  /* left: 30px */
+}
+
+.text {
+  font-family: "HolidayMaria";
+  font-size: 7rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  rotate: -15deg;
+  color: #fff;
+  scale: 1.5;
+}
+
+.line {
+  display: flex;
+}
+
+.char {
+  display: inline-block;
+  width: .27em;
+  height: .5em;
+  text-align: center;
+  font-weight: 500;
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.char-upper {
+  display: inline-block;
+  width: .36em;
+  height: .5em;
+  text-align: center;
+  font-weight: 500;
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.char-space {
+  display: inline-block;
+  width: .5em;
+  /* height: 1em; */
+  text-align: center;
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.char.visible {
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
+}
+
+.char-space.visible {
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
+}
+
+.char-upper.visible {
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
+}
+
+.end-bg {
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.end-sub-title{
+  position: absolute;
+  text-align: center;
+  bottom: 10px;
+  font-family: "HolidayMaria";
+  color: #fff;
+  width: 100%;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+
+
 @-webkit-keyframes fadeInUp_ {
   0% {
-      opacity: 0;
-      -webkit-transform: translate3d(0, 10%, 0);
-      transform: translate3d(0, 10%, 0);
+    opacity: 0;
+    -webkit-transform: translate3d(0, 10%, 0);
+    transform: translate3d(0, 10%, 0);
   }
+
   to {
-      opacity: 1;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
+    opacity: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 }
+
 @keyframes fadeInUp_ {
   0% {
-      opacity: 0;
-      -webkit-transform: translate3d(0, 10%, 0);
-      transform: translate3d(0, 10%, 0);
+    opacity: 0;
+    -webkit-transform: translate3d(0, 10%, 0);
+    transform: translate3d(0, 10%, 0);
   }
+
   to {
-      opacity: 1;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
+    opacity: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 }
 
 @-webkit-keyframes fadeOutUp_ {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
+
   to {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -10%, 0);
-      transform: translate3d(0, -10%, 0);
+    opacity: 0;
+    -webkit-transform: translate3d(0, -10%, 0);
+    transform: translate3d(0, -10%, 0);
   }
 }
+
 @keyframes fadeOutUp_ {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
+
   to {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -10%, 0);
-      transform: translate3d(0, -10%, 0);
+    opacity: 0;
+    -webkit-transform: translate3d(0, -10%, 0);
+    transform: translate3d(0, -10%, 0);
   }
 }
 
@@ -428,7 +542,7 @@ body{
 @media (max-width: 1200px) {
   .home .home-title {
     font-size: 70px;
-    text-align: center 
+    text-align: center
   }
 
   .home .home-release {
@@ -438,7 +552,7 @@ body{
 
 @media (max-width: 768px) {
   .home .home-title {
-    font-size: 60px; 
+    font-size: 60px;
     text-align: center;
     margin-top: 10vh;
   }
@@ -447,47 +561,51 @@ body{
     font-size: 30px;
   }
 
-  .main-title{
+  .main-title {
     font-size: 60px;
   }
 
-  .members-collection-wrapper .avatar-wrapper{
+  .members-collection-wrapper .avatar-wrapper {
     width: calc(35%);
   }
 
-  .members-collection-wrapper .avatar-wrapper .name{
+  .members-collection-wrapper .avatar-wrapper .name {
     font-size: 20px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .avatar{
+  .members-collection-wrapper .avatar-wrapper .avatar {
     border-radius: 20px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .frame .star-top{
+  .members-collection-wrapper .avatar-wrapper .frame .star-top {
     height: 50px;
     width: 50px;
     top: -25px;
     right: -25px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .frame .star-bottom1{
+  .members-collection-wrapper .avatar-wrapper .frame .star-bottom1 {
     height: 20px;
     width: 20px;
     bottom: -10px;
     left: -10px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .frame .star-top2{
+  .members-collection-wrapper .avatar-wrapper .frame .star-top2 {
     height: 30px;
     width: 30px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .avatar{
+  .members-collection-wrapper .avatar-wrapper .avatar {
     padding: 5px;
   }
 
   .carousel-item p {
     height: 65vh;
+  }
+
+  .text {
+    scale: 1;
   }
 }
 
@@ -496,7 +614,7 @@ body{
 
 @media (max-width: 460px) {
   .home .home-title {
-    font-size: 60px; 
+    font-size: 60px;
     text-align: center;
     margin-top: 10vh;
   }
@@ -505,59 +623,60 @@ body{
     font-size: 30px;
   }
 
-  .main-title{
+  .main-title {
     font-size: 50px;
   }
 
-  .members-collection-wrapper .avatar-wrapper{
+  .members-collection-wrapper .avatar-wrapper {
     width: calc(70%);
   }
 
-  .members-collection-wrapper .avatar-wrapper .name{
+  .members-collection-wrapper .avatar-wrapper .name {
     font-size: 20px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .avatar{
+  .members-collection-wrapper .avatar-wrapper .avatar {
     border-radius: 20px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .frame .star-top{
+  .members-collection-wrapper .avatar-wrapper .frame .star-top {
     height: 50px;
     width: 50px;
     top: -25px;
     right: -25px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .frame .star-bottom1{
+  .members-collection-wrapper .avatar-wrapper .frame .star-bottom1 {
     height: 20px;
     width: 20px;
     bottom: -10px;
     left: -10px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .frame .star-top2{
+  .members-collection-wrapper .avatar-wrapper .frame .star-top2 {
     height: 30px;
     width: 30px;
   }
 
-  .members-collection-wrapper .avatar-wrapper .avatar{
+  .members-collection-wrapper .avatar-wrapper .avatar {
     padding: 5px;
   }
 
   .carousel-item p {
     height: 60vh;
-    font-size: 30px !important; 
+    font-size: 30px !important;
     line-height: 25px !important;
   }
 
-  .second-title{
+  .second-title {
     margin-bottom: 50px !important;
   }
 
-  #prev-btn, #next-btn{
+  #prev-btn,
+  #next-btn {
     display: none;
   }
-  
+
 }
 
 @media (max-height: 670px) {
@@ -565,3 +684,4 @@ body{
     display: none;
   }
 }
+
