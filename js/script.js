@@ -168,3 +168,82 @@ function handleSwipe() {
 // Thêm sự kiện touch vào carousel
 carousel.addEventListener('touchstart', handleTouchStart);
 carousel.addEventListener('touchend', handleTouchEnd);
+
+
+document.querySelectorAll('.flip-hover').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left; // X position within the card
+    const mouseY = e.clientY - rect.top; // Y position within the card
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // Calculate the tilt amount based on mouse position
+    const tiltX = (mouseY - centerY) / centerY * 15; // Tilt up/down
+    const tiltY = (centerX - mouseX) / centerX * 15; // Tilt left/right
+
+    // Apply the tilt effect
+    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
+  });
+
+  // Reset the tilt effect when the mouse leaves the card
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+  });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loadingPage = document.getElementById('loading-page');
+  const mainContent = document.getElementById('main-content');
+  const progressBar = document.querySelector('.progress');
+  const progressText = document.querySelector('.progress-text');
+
+  // Get all images in the main content
+  const images = mainContent.querySelectorAll('img');
+  let imagesLoaded = 0;
+
+  // Update progress bar and percentage
+  const updateProgress = () => {
+    const progress = (imagesLoaded / images.length) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressText.textContent = `${Math.round(progress)}%`;
+  };
+
+  // Check if all images are loaded
+  const checkImagesLoaded = () => {
+    imagesLoaded++;
+    updateProgress();
+
+    if (imagesLoaded === images.length) {
+      // All images are loaded, hide loading page and show main content
+      loadingPage.style.display = 'none';
+      mainContent.style.display = 'block';
+
+      // Add a small delay to ensure the display transition works
+      setTimeout(() => {
+        mainContent.classList.add('loaded');
+      }, 50);
+    }
+  };
+
+  // Add load event listeners to all images
+  images.forEach(img => {
+    if (img.complete) {
+      // If the image is already loaded, count it
+      checkImagesLoaded();
+    } else {
+      // Wait for the image to load
+      img.addEventListener('load', checkImagesLoaded);
+    }
+  });
+
+  // If there are no images, immediately show the main content
+  if (images.length === 0) {
+    loadingPage.style.display = 'none';
+    mainContent.style.display = 'block';
+    mainContent.classList.add('loaded');
+  }
+});
