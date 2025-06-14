@@ -19,7 +19,7 @@ let currentIndex = 1;
 
 const carousel = document.getElementById("quote-carousel");
 
-// Function to create carousel items dynamically
+
 function createCarouselItem(quote) {
   const item = document.createElement("div");
   item.classList.add("carousel-item");
@@ -34,7 +34,7 @@ function createCarouselItem(quote) {
   return item;
 }
 
-// Function to display a particular quote based on index
+
 function displayQuote(index) {
   if (quotes[index] == null || index == 0) {
     return;
@@ -55,10 +55,10 @@ function displayQuote(index) {
   }, 500);
 }
 
-// Display initial quote
+
 displayQuote(currentIndex);
 
-// Event listeners for navigation buttons
+
 document.getElementById("next-btn").addEventListener("click", () => {
   currentIndex = (currentIndex + 1) % quotes.length;
   displayQuote(currentIndex);
@@ -134,38 +134,38 @@ let touchStartY = 0;
 let touchEndY = 0;
 
 function handleTouchStart(e) {
-  // Lưu lại tọa độ điểm bắt đầu của vuốt
+
   touchStartX = e.changedTouches[0].screenX;
   touchStartY = e.changedTouches[0].screenY;
 }
 
 function handleTouchEnd(e) {
-  // Lưu lại tọa độ điểm kết thúc của vuốt
+
   touchEndX = e.changedTouches[0].screenX;
   touchEndY = e.changedTouches[0].screenY;
 
-  // Kiểm tra sự di chuyển trên trục ngang và trục dọc
+
   if (Math.abs(touchEndX - touchStartX) > Math.abs(touchEndY - touchStartY)) {
-    // Vuốt ngang (chỉ thay đổi quote khi vuốt ngang)
+
     handleSwipe();
   }
 }
 
 function handleSwipe() {
   if (touchEndX < touchStartX) {
-    // Vuốt sang trái (next quote)
+
     currentIndex = (currentIndex + 1) % quotes.length;
     displayQuote(currentIndex);
   }
 
   if (touchEndX > touchStartX) {
-    // Vuốt sang phải (prev quote)
+
     currentIndex = (currentIndex - 1 + quotes.length) % quotes.length;
     displayQuote(currentIndex);
   }
 }
 
-// Thêm sự kiện touch vào carousel
+
 carousel.addEventListener('touchstart', handleTouchStart);
 carousel.addEventListener('touchend', handleTouchEnd);
 
@@ -173,21 +173,21 @@ carousel.addEventListener('touchend', handleTouchEnd);
 document.querySelectorAll('.flip-hover').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left; // X position within the card
-    const mouseY = e.clientY - rect.top; // Y position within the card
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
 
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // Calculate the tilt amount based on mouse position
-    const tiltX = (mouseY - centerY) / centerY * 15; // Tilt up/down
-    const tiltY = (centerX - mouseX) / centerX * 15; // Tilt left/right
 
-    // Apply the tilt effect
+    const tiltX = (mouseY - centerY) / centerY * 15;
+    const tiltY = (centerX - mouseX) / centerX * 15;
+
+
     card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
   });
 
-  // Reset the tilt effect when the mouse leaves the card
+
   card.addEventListener('mouseleave', () => {
     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
   });
@@ -201,49 +201,202 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = document.querySelector('.progress');
   const progressText = document.querySelector('.progress-text');
 
-  // Get all images in the main content
+
   const images = mainContent.querySelectorAll('img');
   let imagesLoaded = 0;
 
-  // Update progress bar and percentage
+
   const updateProgress = () => {
     const progress = (imagesLoaded / images.length) * 100;
     progressBar.style.width = `${progress}%`;
     progressText.textContent = `${Math.round(progress)}%`;
   };
 
-  // Check if all images are loaded
+
   const checkImagesLoaded = () => {
     imagesLoaded++;
     updateProgress();
 
     if (imagesLoaded === images.length) {
-      // All images are loaded, hide loading page and show main content
+
       loadingPage.style.display = 'none';
       mainContent.style.display = 'block';
 
-      // Add a small delay to ensure the display transition works
+
       setTimeout(() => {
         mainContent.classList.add('loaded');
       }, 50);
     }
   };
 
-  // Add load event listeners to all images
+
   images.forEach(img => {
     if (img.complete) {
-      // If the image is already loaded, count it
+
       checkImagesLoaded();
     } else {
-      // Wait for the image to load
+
       img.addEventListener('load', checkImagesLoaded);
     }
   });
 
-  // If there are no images, immediately show the main content
+
   if (images.length === 0) {
     loadingPage.style.display = 'none';
     mainContent.style.display = 'block';
     mainContent.classList.add('loaded');
   }
 });
+
+function flipCard(element, birthday) {
+  const isFlipped = element.classList.contains('flipped');
+
+  if (isFlipped) {
+    element.classList.remove('flipped');
+  } else {
+    element.classList.add('flipped');
+
+    const today = new Date();
+    const birthdayDate = new Date(birthday);
+
+    if (today.getDate() == birthdayDate.getDate() && today.getMonth() == birthdayDate.getMonth()) {
+      createBirthdayEffect(element);
+      createBirthdayCelebration(element);
+    }
+  }
+}
+
+function createBirthdayEffect(element) {
+  const oldEffect = element.querySelector('.birthday-effect');
+  if (oldEffect) oldEffect.remove();
+
+  const effect = document.createElement('div');
+  effect.className = 'birthday-effect';
+
+  const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+  for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.animation = `confetti-fall ${2 + Math.random() * 3}s linear forwards`;
+    confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+    confetti.style.width = `${5 + Math.random() * 10}px`;
+    confetti.style.height = `${5 + Math.random() * 10}px`;
+    effect.appendChild(confetti);
+  }
+
+  element.querySelector('.card-back').appendChild(effect);
+
+  setTimeout(() => {
+    effect.remove();
+  }, 3000);
+}
+
+function createBirthdayCelebration(element) {
+
+  const oldEffect = element.querySelector('.birthday-celebration');
+  if (oldEffect) oldEffect.remove();
+
+
+  const celebration = document.createElement('div');
+  celebration.className = 'birthday-celebration';
+  celebration.style.position = 'absolute';
+  celebration.style.width = '100%';
+  celebration.style.height = '100%';
+  celebration.style.top = '0';
+  celebration.style.left = '0';
+  celebration.style.pointerEvents = 'none';
+  celebration.style.overflow = 'hidden';
+  celebration.style.zIndex = '10';
+
+
+  const birthdayText = document.createElement('div');
+  birthdayText.className = 'happy-birthday-text';
+  birthdayText.textContent = 'Happy Birthday!';
+  celebration.appendChild(birthdayText);
+
+
+  createBubbles(celebration, 15);
+
+
+  createConfetti(celebration, 50);
+
+
+  createExplosions(celebration, 5);
+
+
+  element.querySelector('.card-back').appendChild(celebration);
+
+
+  setTimeout(() => {
+    celebration.remove();
+  }, 3000);
+}
+
+function createBubbles(container, count) {
+  const colors = ['rgba(255,255,255,0.6)', 'rgba(255,215,0,0.6)', 'rgba(255,105,180,0.6)', 'rgba(173,216,230,0.6)'];
+
+  for (let i = 0; i < count; i++) {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+
+
+    const size = 10 + Math.random() * 30;
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+
+
+    bubble.style.left = `${Math.random() * 100}%`;
+    bubble.style.bottom = '0';
+
+
+    bubble.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+
+    bubble.style.animationDuration = `${2 + Math.random() * 2}s`;
+    bubble.style.animationDelay = `${Math.random() * 0.5}s`;
+
+    container.appendChild(bubble);
+  }
+}
+
+function createConfetti(container, count) {
+  const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+
+  for (let i = 0; i < count; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.top = `${Math.random() * 100}%`;
+    confetti.style.animation = `confetti-fall ${2 + Math.random() * 3}s linear forwards`;
+    confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+    confetti.style.width = `${5 + Math.random() * 10}px`;
+    confetti.style.height = `${5 + Math.random() * 10}px`;
+    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+    container.appendChild(confetti);
+  }
+}
+
+function createExplosions(container, count) {
+  for (let i = 0; i < count; i++) {
+    const explosion = document.createElement('div');
+    explosion.className = 'explosion';
+
+
+    explosion.style.left = `${10 + Math.random() * 80}%`;
+    explosion.style.top = `${10 + Math.random() * 80}%`;
+
+
+    const size = 5 + Math.random() * 15;
+    explosion.style.width = `${size}px`;
+    explosion.style.height = `${size}px`;
+
+
+    explosion.style.animationDelay = `${Math.random() * 1.5}s`;
+
+    container.appendChild(explosion);
+  }
+}
